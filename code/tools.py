@@ -21,7 +21,7 @@ def dataframe_to_xarray(df:pd.DataFrame, dim_cols:list, data_col:str):
         coord_list.append(uaxis)
         idx_list.append(f'{col_name}_idx')
     res_data = np.full(ndf[dim_cols].nunique(), np.nan) # 使用idx生成 np.ndarray
-    res_data[tuple(df[idx_name].values for idx_name in idx_list)] = df[data_col]
+    res_data[tuple(ndf[idx_name].values for idx_name in idx_list)] = ndf[data_col]
     res_xa = xr.DataArray(data = res_data, 
                           coords={col_name:coord_list[k] for k,col_name in enumerate(dim_cols)}, 
                           dims=dim_cols) # 加入轴的信息
